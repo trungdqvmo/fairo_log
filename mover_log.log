@@ -1,0 +1,47 @@
+2021-11-17 04:48:57,509 [interpreter.py:167 - handle_move() INFO]: Control where to move
+INFO:root:current loop_data
+2021-11-17 04:48:57,509 [interpreter.py:175 - new_tasks() INFO]: current loop_data
+INFO:root:None
+2021-11-17 04:48:57,509 [interpreter.py:176 - new_tasks() INFO]: None
+INFO:root:start ref object for {'filters': {'where_clause': {'AND': [{'pred_text': 'has_name', 'obj_text': 'desk'}]}}}
+2021-11-17 04:48:57,509 [interpret_location.py:65 - __call__() INFO]: start ref object for {'filters': {'where_clause': {'AND': [{'pred_text': 'has_name', 'obj_text': 'desk'}]}}}
+INFO:root:get_val_map
+2021-11-17 04:48:57,509 [interpret_filters.py:39 - get_val_map() INFO]: get_val_map
+INFO:root:{'where_clause': {'AND': [{'pred_text': 'has_name', 'obj_text': 'desk'}]}}
+2021-11-17 04:48:57,509 [interpret_filters.py:40 - get_val_map() INFO]: {'where_clause': {'AND': [{'pred_text': 'has_name', 'obj_text': 'desk'}]}}
+INFO:root:got candidate mems:
+2021-11-17 04:48:57,509 [interpret_reference_objects.py:159 - interpret_reference_object() INFO]: got candidate mems:
+INFO:root:[DetectedObject id 33, pos (-2.0941748680695866, 0.23053125850856304, -4.277132808493281)]
+2021-11-17 04:48:57,509 [interpret_reference_objects.py:160 - interpret_reference_object() INFO]: [DetectedObject id 33, pos (-2.0941748680695866, 0.23053125850856304, -4.277132808493281)]
+INFO:root:start ref object for {'special_reference': 'AGENT'}
+2021-11-17 04:48:57,509 [interpret_location.py:65 - __call__() INFO]: start ref object for {'special_reference': 'AGENT'}
+INFO:root:update_recent_entities [<droidlet.memory.memory_nodes.SelfNode object at 0x7fb6cb0faed0>]
+2021-11-17 04:48:57,510 [sql_memory.py:228 - update_recent_entities() INFO]: update_recent_entities [<droidlet.memory.memory_nodes.SelfNode object at 0x7fb6cb0faed0>]
+INFO:root:to compute_location_heuristic, we have all the data as: reldir FRONT, yaw 2.1161950023567933, pitch 0.0 with self_memid 00000000000000000000000000000000
+2021-11-17 04:48:57,510 [spatial_reasoning.py:51 - compute_location_heuristic() INFO]: to compute_location_heuristic, we have all the data as: reldir FRONT, yaw 2.1161950023567933, pitch 0.0 with self_memid 00000000000000000000000000000000
+INFO:root:direct vector [ 0.85492054  0.         -0.51875897] and calculated location [ 4.67992035  0.         -3.09375925]
+2021-11-17 04:48:57,511 [spatial_reasoning.py:55 - compute_location_heuristic() INFO]: direct vector [ 0.85492054  0.         -0.51875897] and calculated location [ 4.67992035  0.         -3.09375925]
+INFO:root:selecting interpret:
+2021-11-17 04:48:57,511 [interpret_reference_objects.py:305 - filter_by_sublocation() INFO]: selecting interpret:
+INFO:root:None
+2021-11-17 04:48:57,511 [interpret_reference_objects.py:307 - filter_by_sublocation() INFO]: None
+INFO:root:update_recent_entities [DetectedObject id 33, pos (-2.0941748680695866, 0.23053125850856304, -4.277132808493281)]
+2021-11-17 04:48:57,511 [sql_memory.py:228 - update_recent_entities() INFO]: update_recent_entities [DetectedObject id 33, pos (-2.0941748680695866, 0.23053125850856304, -4.277132808493281)]
+INFO:root:got mems ref: 
+2021-11-17 04:48:57,512 [interpreter.py:181 - new_tasks() INFO]: got mems ref: 
+INFO:root:[DetectedObject id 33, pos (-2.0941748680695866, 0.23053125850856304, -4.277132808493281)]
+2021-11-17 04:48:57,512 [interpreter.py:182 - new_tasks() INFO]: [DetectedObject id 33, pos (-2.0941748680695866, 0.23053125850856304, -4.277132808493281)]
+INFO:root:got steps reldir: None, FRONT
+2021-11-17 04:48:57,512 [interpreter.py:187 - new_tasks() INFO]: got steps reldir: None, FRONT
+INFO:root:<droidlet.interpreter.robot.spatial_reasoning.ComputeLocations object at 0x7fb6cb1ade50>
+2021-11-17 04:48:57,512 [interpreter.py:188 - new_tasks() INFO]: <droidlet.interpreter.robot.spatial_reasoning.ComputeLocations object at 0x7fb6cb1ade50>
+INFO:root:to compute_location_heuristic, we have all the data as: reldir FRONT, yaw 2.1161950023567933, pitch 0.0 with self_memid 00000000000000000000000000000000
+2021-11-17 04:48:57,512 [spatial_reasoning.py:51 - compute_location_heuristic() INFO]: to compute_location_heuristic, we have all the data as: reldir FRONT, yaw 2.1161950023567933, pitch 0.0 with self_memid 00000000000000000000000000000000
+INFO:root:direct vector [ 0.85492054  0.         -0.51875897] and calculated location [-1.23925433  0.23053126 -4.79589178]
+2021-11-17 04:48:57,512 [spatial_reasoning.py:55 - compute_location_heuristic() INFO]: direct vector [ 0.85492054  0.         -0.51875897] and calculated location [-1.23925433  0.23053126 -4.79589178]
+INFO:root:action {'action_type': 'MOVE', 'location': {'reference_object': {'filters': {'where_clause': {'AND': [{'pred_text': 'has_name', 'obj_text': 'desk'}]}}}, 'text_span': 'to th desk'}} record this task <Move [-1.23925433 -4.79589178  2.116195  ]>
+2021-11-17 04:48:57,514 [interpreter.py:113 - step() INFO]: action {'action_type': 'MOVE', 'location': {'reference_object': {'filters': {'where_clause': {'AND': [{'pred_text': 'has_name', 'obj_text': 'desk'}]}}}, 'text_span': 'to th desk'}} record this task <Move [-1.23925433 -4.79589178  2.116195  ]>
+INFO:root:calling move with : [-1.239254325865017, -4.795891776142656, 2.1161950023567933]
+2021-11-17 04:48:57,516 [tasks.py:144 - step() INFO]: calling move with : [-1.239254325865017, -4.795891776142656, 2.1161950023567933]
+INFO:root:Move absolute in canonical coordinates [0, -4.795891776142656, 2.1161950023567933]
+2021-11-17 04:48:57,516 [locobot_mover.py:218 - move_absolute() INFO]: Move absolute in canonical coordinates [0, -4.795891776142656, 2.1161950023567933]

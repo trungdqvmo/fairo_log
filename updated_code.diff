@@ -1,0 +1,436 @@
+diff --git a/agents/droidlet_agent.py b/agents/droidlet_agent.py
+index a696efeb..841226ff 100644
+--- a/agents/droidlet_agent.py
++++ b/agents/droidlet_agent.py
+@@ -42,7 +42,7 @@ class DroidletAgent(BaseAgent):
+         self.perceive_on_chat = False
+         self.agent_type = None
+         self.scheduler = EmptyScheduler()
+-        
++
+         self.dashboard_memory_dump_time = time.time()
+         self.dashboard_memory = {
+             "db": {},
+@@ -118,11 +118,12 @@ class DroidletAgent(BaseAgent):
+             saveObjectAnnotationsToDb(self.conn, postData)
+ 
+         @sio.on("sendCommandToAgent")
+-        def send_text_command_to_agent(sid, command):
++        def send_text_command_to_agent(sid, command, uuid=""):
+             """Add the command to agent's incoming chats list and
+             send back the parse.
+             Args:
+                 command: The input text command from dashboard player
++                uuid: The uuid of selected object - if specified
+             Returns:
+                 return back a socket emit with parse of command and success status
+             """
+@@ -131,7 +132,14 @@ class DroidletAgent(BaseAgent):
+             agent_chat = (
+                 "<dashboard> " + command
+             )  # the chat is coming from a player called "dashboard"
+-            self.dashboard_chat = agent_chat
++            object_data = {}
++            if uuid:
++                object_data["uuid"] = uuid
++            logging.info("in send_text_command_to_agent, got the command: %r" % (command))
++            self.dashboard_chat = {
++                                    "chat" : agent_chat,
++                                    "object_data": object_data
++                                }
+             status = "Sent successfully"
+             # update server memory
+             self.dashboard_memory["chats"].pop(0)
+@@ -160,7 +168,7 @@ class DroidletAgent(BaseAgent):
+                     logical_form = self.dialogue_manager.dialogue_object_mapper.postprocess_logical_form(speaker="dashboard", chat=chat, logical_form=logical_form)
+             except Exception as e:
+                 logging.debug(f"Failed to find any action dict for command [{chat}] in memory")
+-            
++
+             payload = {
+                 "action_dict": logical_form
+             }
+diff --git a/agents/locobot/locobot_agent.py b/agents/locobot/locobot_agent.py
+index 79dfaaec..63281875 100644
+--- a/agents/locobot/locobot_agent.py
++++ b/agents/locobot/locobot_agent.py
+@@ -115,15 +115,15 @@ class LocobotAgent(DroidletAgent):
+                     movement[0] -= movement_values["velocity"]
+                     print("action: BACKWARD")
+                 elif command == "MOVE_LEFT":
+-                    movement[2] += movement_values["yaw"]
++                    movement[1] += movement_values["velocity"]
+                     print("action: LEFT")
+                 elif command == "MOVE_RIGHT":
+-                    movement[2] -= movement_values["yaw"]
++                    movement[1] -= movement_values["velocity"]
+                     print("action: RIGHT")
+                 elif command == "PAN_LEFT":
+-                    self.mover.bot.set_pan(self.mover.bot.get_pan() + 0.08)
++                    movement[2] += movement_values["yaw"]
+                 elif command == "PAN_RIGHT":
+-                    self.mover.bot.set_pan(self.mover.bot.get_pan() - 0.08)
++                    movement[2] -= movement_values["yaw"]
+                 elif command == "TILT_UP":
+                     self.mover.bot.set_tilt(self.mover.bot.get_tilt() - 0.08)
+                 elif command == "TILT_DOWN":
+diff --git a/droidlet/dashboard/web/src/components/Interact/Message.js b/droidlet/dashboard/web/src/components/Interact/Message.js
+index 3cdc045d..d12bdda1 100644
+--- a/droidlet/dashboard/web/src/components/Interact/Message.js
++++ b/droidlet/dashboard/web/src/components/Interact/Message.js
+@@ -116,6 +116,8 @@ class Message extends Component {
+   }
+ 
+   handleSubmit() {
++    const selectedObject = JSON.parse(localStorage.getItem("selected_object"));
++
+     //get the message
+     var chatmsg = document.getElementById("msg").innerHTML;
+     if (chatmsg.replace(/\s/g, "") !== "") {
+@@ -124,7 +126,16 @@ class Message extends Component {
+       //log message to flask
+       this.props.stateManager.logInteractiondata("text command", chatmsg);
+       //socket connection
+-      this.props.stateManager.socket.emit("sendCommandToAgent", chatmsg);
++      if (selectedObject) {
++        //send selected objectId if it exists in localStorage
++        this.props.stateManager.socket.emit(
++          "sendCommandToAgent",
++          chatmsg,
++          selectedObject.uuid
++        );
++      } else {
++        this.props.stateManager.socket.emit("sendCommandToAgent", chatmsg);
++      }
+       //clear the textbox
+       document.getElementById("msg").innerHTML = "";
+     }
+diff --git a/droidlet/dashboard/web/src/components/LiveObjects.js b/droidlet/dashboard/web/src/components/LiveObjects.js
+index 32a490e3..c6af3213 100644
+--- a/droidlet/dashboard/web/src/components/LiveObjects.js
++++ b/droidlet/dashboard/web/src/components/LiveObjects.js
+@@ -8,7 +8,7 @@ import React from "react";
+ import { Rnd } from "react-rnd";
+ import { Stage, Layer, Image as KImage, Rect, Text, Shape } from "react-konva";
+ import ObjectFixup from "./ObjectFixup";
+-
++import MemoryList from "./MemoryList";
+ const COLORS = [
+   "rgba(0,200,0,.5)",
+   "rgba(200,0,0,.5)",
+@@ -46,6 +46,7 @@ class LiveObjects extends React.Component {
+       modelMetrics: null,
+       offline: false,
+       updateFixup: false,
++      selectedObject: JSON.parse(localStorage.getItem("selected_object")),
+     };
+     this.state = this.initialState;
+   }
+@@ -143,7 +144,35 @@ class LiveObjects extends React.Component {
+       this.props.stateManager.nextFrame();
+     }
+   }
++  onSelectObject(obj) {
++    const currentObject = JSON.parse(localStorage.getItem("selected_object"));
++    let stateManager = this.props.stateManager;
++    let listObject = [];
++    //get list object from MemoryList
++    stateManager.refs.forEach((ref) => {
++      if (ref instanceof MemoryList) {
++        listObject = ref.state.memory.reference_objects;
++      }
++    });
+ 
++    //change objectId in localStorage when click object
++    if (currentObject && currentObject.id.toString() === obj.id.toString()) {
++      this.setState({ selectedObject: null });
++      localStorage.removeItem("selected_object");
++    } else {
++      listObject.forEach((object) => {
++        const objectId = object[1]; //hardcoded by response data, not sure if data change in future
++        if (objectId && objectId.toString() === obj.id.toString()) {
++          const selectedValues = { uuid: object[0], id: obj.id };
++          localStorage.setItem(
++            "selected_object",
++            JSON.stringify(selectedValues)
++          );
++          this.setState({ selectedObject: selectedValues });
++        }
++      });
++    }
++  }
+   componentDidMount() {
+     if (this.props.stateManager) this.props.stateManager.connect(this);
+   }
+@@ -200,6 +229,7 @@ class LiveObjects extends React.Component {
+       let y2 = parseInt(obj.bbox[3] * scale);
+       let h = y2 - y1;
+       let w = x2 - x1;
++      const highlightColor = "rgb(237,237,237)";
+       renderedObjects.push(
+         <Rect
+           key={j}
+@@ -212,11 +242,38 @@ class LiveObjects extends React.Component {
+           opacity={1.0}
+         />
+       );
++      // when object was selected, highlight it
++      if (
++        this.state.selectedObject &&
++        obj.id.toString() === this.state.selectedObject.id.toString()
++      ) {
++        renderedObjects.push(
++          <Rect
++            key={`selected-${j}`}
++            x={x1}
++            y={y1}
++            width={w}
++            height={h}
++            fillEnabled={false}
++            stroke={highlightColor}
++          />,
++          <Text
++            key={`selected-text-${j}`}
++            text={`Selected Object: ${this.state.selectedObject.uuid}`}
++            x={5}
++            y={5}
++            fill={color}
++            fontSize={12}
++            width={this.state.width - 5}
++          />
++        );
++      }
+       if (obj && obj.mask) {
+         for (let j = 0; j < obj.mask.length; j++) {
+           let mask = obj.mask[j].map((x) => [x[0] * scale, x[1] * scale]);
+           renderedObjects.push(
+             <Shape
++              onClick={() => this.onSelectObject(obj)} //handle click object's mask
+               sceneFunc={(context, shape) => {
+                 context.beginPath();
+                 context.moveTo(...mask[0]);
+diff --git a/droidlet/interpreter/interpret_filters.py b/droidlet/interpreter/interpret_filters.py
+index db90b076..e1cca13b 100644
+--- a/droidlet/interpreter/interpret_filters.py
++++ b/droidlet/interpreter/interpret_filters.py
+@@ -74,8 +74,8 @@ def maybe_handle_specific_mem(interpreter, speaker, filters_d, val_map):
+ def interpret_where_clause(
+     interpreter, speaker, where_d, memory_type="ReferenceObject", ignore_self=False
+ ):
+-    """ 
+-    where_d is a sentence (nested dict/list) of the recursive form 
++    """
++    where_d is a sentence (nested dict/list) of the recursive form
+     COMPARATOR, TRIPLE, or {CONJUNCTION, [where_clauses]}
+     where each CONJUCTION is either "AND", "OR", or "NOT"
+     """
+@@ -295,7 +295,7 @@ def interpret_dance_filter(interpreter, speaker, filters_d, get_all=False):
+ 
+ 
+ class FilterInterpreter:
+-    def __call__(self, interpreter, speaker, filters_d, get_all=False):
++    def __call__(self, interpreter, speaker, filters_d, object_data={}, get_all=False):
+         """
+         This is a subinterpreter to handle FILTERS dictionaries
+ 
+@@ -304,6 +304,7 @@ class FilterInterpreter:
+         speaker (str): The name of the player/human/agent who uttered
+             the chat resulting in this interpreter
+         filters_d: FILTERS logical form from semantic parser
++        object_data: information of selected object - if specified # FIXME: should put into query here
+         get_all (bool): if True, output attributes are set with get_all=True
+ 
+         Outputs a (chain) of MemoryFilter objects
+diff --git a/droidlet/interpreter/interpret_location.py b/droidlet/interpreter/interpret_location.py
+index 048be3ec..e5174b79 100644
+--- a/droidlet/interpreter/interpret_location.py
++++ b/droidlet/interpreter/interpret_location.py
+@@ -2,6 +2,7 @@
+ Copyright (c) Facebook, Inc. and its affiliates.
+ """
+ 
++import logging
+ import math
+ from droidlet.shared_data_structs import ErrorWithResponse
+ from .interpreter_utils import SPEAKERLOOK, backoff_where
+@@ -61,6 +62,7 @@ class ReferenceLocationInterpreter:
+ 
+         default_loc = getattr(interpreter, "default_loc", SPEAKERLOOK)
+         ref_obj = d.get("reference_object", default_loc["reference_object"])
++        logging.error(f"Tracing speaker {speaker} for debug moving session")
+         mems = interpreter.subinterpret["reference_objects"](
+             interpreter, speaker, ref_obj, loose_speakerlook=loose_speakerlook
+         )
+@@ -80,8 +82,9 @@ class ReferenceLocationInterpreter:
+         if len(mems) < expected_num:
+             raise ErrorWithResponse("I don't know what you're referring to")
+ 
+-        # FIXME:
+-        mems = mems[:expected_num] 
+         return mems
+diff --git a/droidlet/interpreter/interpret_reference_objects.py b/droidlet/interpreter/interpret_reference_objects.py
+index f92326a3..115bed2a 100644
+--- a/droidlet/interpreter/interpret_reference_objects.py
++++ b/droidlet/interpreter/interpret_reference_objects.py
+@@ -117,6 +117,7 @@ def interpret_reference_object(
+     allow_clarification (bool): should a Clarification object be put on the DialogueStack
+     """
+     filters_d = d.get("filters")
++    object_data = d.get("object_data", {})
+     special = d.get("special_reference")
+     # filters_d can be empty...
+     assert (
+@@ -159,7 +160,7 @@ def interpret_reference_object(
+         filters_no_select = deepcopy(filters_d)
+         filters_no_select.pop("selector", None)
+         #        filters_no_select.pop("location", None)
+-        candidate_mems = apply_memory_filters(interpreter, speaker, filters_no_select)
++        candidate_mems = apply_memory_filters(interpreter, speaker, filters_no_select, object_data=object_data)
+         if len(candidate_mems) > 0:
+             return filter_by_sublocation(
+                 interpreter,
+@@ -208,11 +209,20 @@ def interpret_reference_object(
+             raise ErrorWithResponse("I don't know what you're referring to")
+ 
+ 
+-def apply_memory_filters(interpreter, speaker, filters_d) -> List[ReferenceObjectNode]:
++def apply_memory_filters(interpreter, speaker, filters_d, object_data={}) -> List[ReferenceObjectNode]:
+     """Return a list of (xyz, memory) tuples encompassing all possible reference objects"""
+     F = interpreter.subinterpret["filters"](interpreter, speaker, filters_d)
+     memids, _ = F()
++    # FIXME: hard fix take object data by uuid without actually query
++    if 'uuid' in object_data:
++        if object_data['uuid'] in memids:
++            memids = [object_data['uuid']]
++        else:
++            memids = []
+     mems = [interpreter.memory.get_mem_by_id(i) for i in memids]
++    # FIXME: hard fix take only first object - if still multiple choice of object
++    if len(mems) > 1:
++        mems = [mems[0]]
+     return mems
+ 
+ 
+@@ -279,13 +289,15 @@ def filter_by_sublocation(
+                 interpreter.memory, {"frame": eid, "relative_direction": reldir}, mem=self_mem
+             )
+             c_proj = L(candidates)
+-            m_proj = L(mems)
+-            # FIXME don't just take the first...
+-            m_proj = m_proj[0]
++            m_projs = L(mems)
++            # remove hard fix take the first to allow take object by specify object uuid after that
++            # m_proj = m_proj[0]
+ 
+             # filter by relative dir, e.g. "left of Y"
+-            location_filtered_candidates = [c for (p, c) in zip(c_proj, candidates) if p > m_proj]
+-            # "the X left of Y" = the right-most X that is left of Y
++            location_filtered_candidates = []
++            for m_proj in m_projs:
++                location_filtered_candidates.extend([c for (p, c) in zip(c_proj, candidates) if p > m_proj])
++                # "the X left of Y" = the right-most X that is left of Y
+             location_filtered_candidates.sort(key=lambda p: p.get_pos())
+             distance_sorted = True
+     else:
+diff --git a/droidlet/interpreter/interpreter_utils.py b/droidlet/interpreter/interpreter_utils.py
+index 200a96b6..18ae0344 100644
+--- a/droidlet/interpreter/interpreter_utils.py
++++ b/droidlet/interpreter/interpreter_utils.py
+@@ -163,6 +163,9 @@ def coref_resolve(memory, d, chat):
+     if not type(d) is dict:
+         return
+     for k, v in d.items():
++        if k == "object_data":
++            # we passing through object_data directly as-if
++            return
+         if type(v) == dict:
+             coref_resolve(memory, v, chat)
+         if type(v) == list:
+diff --git a/droidlet/interpreter/robot/loco_interpreter.py b/droidlet/interpreter/robot/loco_interpreter.py
+index 7be684f7..32bf8f7b 100644
+--- a/droidlet/interpreter/robot/loco_interpreter.py
++++ b/droidlet/interpreter/robot/loco_interpreter.py
+@@ -27,7 +27,8 @@ import droidlet.interpreter.robot.tasks as tasks
+ def post_process_loc(loc, interpreter):
+     self_mem = interpreter.memory.get_mem_by_id(interpreter.memory.self_memid)
+     yaw, _ = self_mem.get_yaw_pitch()
+-    return (loc[0], loc[2], yaw)
++    return (loc[0], loc[1], yaw)
+ 
+ 
+ def add_default_locs(interpreter):
+diff --git a/droidlet/lowlevel/locobot/locobot_mover.py b/droidlet/lowlevel/locobot/locobot_mover.py
+index 63c881f3..ed0d8c76 100644
+--- a/droidlet/lowlevel/locobot/locobot_mover.py
++++ b/droidlet/lowlevel/locobot/locobot_mover.py
+@@ -217,14 +217,15 @@ class LoCoBotMover:
+             # single xyt position given
+             xyt_positions = [xyt_positions]
+         for xyt in xyt_positions:
+-            logging.info("Move absolute in canonical coordinates {}".format(xyt))
++            #logging.info("Move absolute in canonical coordinates {}".format(xyt))
++            logging.info("Move absolute in pyrobot coordinates {}".format(xyt))
++            start_base_state = self.get_base_pos_in_canonical_coords()
+             self.nav_result.wait() # wait for the previous navigation command to finish
+             self.nav_result = self.nav.go_to_absolute(
+-                base_canonical_coords_to_pyrobot_coords(xyt),
++                tuple(xyt) #base_canonical_coords_to_pyrobot_coords(xyt),
+             )
+             if blocking:
+                 self.nav_result.wait()
+-            start_base_state = self.get_base_pos_in_canonical_coords()
+             while not self.bot.command_finished():
+                 print(self.get_base_pos_in_canonical_coords())
+ 
+diff --git a/droidlet/perception/semantic_parsing/nsp_querier.py b/droidlet/perception/semantic_parsing/nsp_querier.py
+index 892735cf..6135e8c1 100644
+--- a/droidlet/perception/semantic_parsing/nsp_querier.py
++++ b/droidlet/perception/semantic_parsing/nsp_querier.py
+@@ -80,7 +80,14 @@ class NSPQuerier(object):
+         if raw_incoming_chats:
+             logging.info("Incoming chats: {}".format(raw_incoming_chats))
+         incoming_chats = []
+-        for raw_chat in raw_incoming_chats:
++        # update object_data inside raw_incoming_chats, keep old flow working
++        for raw_chat_data in raw_incoming_chats:
++            if isinstance(raw_chat_data, dict):
++                raw_chat = raw_chat_data["chat"]
++                object_data = raw_chat_data["object_data"]
++            else:
++                raw_chat = raw_chat_data
++                object_data = {}
+             match = re.search("^<([^>]+)> (.*)", raw_chat)
+             if match is None:
+                 logging.debug("Ignoring chat in NLU preceive: {}".format(raw_chat))
+@@ -91,17 +98,28 @@ class NSPQuerier(object):
+             logging.debug("In NLU perceive, incoming chat: ['{}' -> {}]".format(speaker_hash, chat))
+             if chat.startswith("/"):
+                 continue
+-            incoming_chats.append((speaker, chat))
++            incoming_chats.append((speaker, chat, object_data))
+ 
+         if len(incoming_chats) > 0:
+             # force to get objects, speaker info
+             if self.agent.perceive_on_chat:
+                 force = True
+             self.agent.last_chat_time = time.time()
+-            # For now just process the first incoming chat, where chat -> [speaker, chat]
+-            speaker, chat = incoming_chats[0]
++            # For now just process the first incoming chat, where chat -> [speaker, chat, object_data]
++            speaker, chat, object_data = incoming_chats[0]
+             received_chats_flag = True
+             preprocessed_chat, chat_parse = self.get_parse(chat)
++            # update object_data into logical_form
++            if object_data:
++                if "action_sequence" in chat_parse:
++                    if chat_parse["action_sequence"][0].get("location", {}).get("reference_object", {}):
++                        chat_parse["action_sequence"][0]["location"]["reference_object"]["object_data"] = object_data
++                elif "action" in chat_parse:
++                    if chat_parse["action_sequence"][0].get("location", {}).get("reference_object", {}):
++                        chat_parse["action"][0]["location"]["reference_object"]["object_data"] = object_data
++                else:
++                    # not handle this case
++                    pass
+ 
+         return force, received_chats_flag, speaker, chat, preprocessed_chat, chat_parse
+ 

@@ -1,0 +1,397 @@
+++ dirname ./launch_pyro_habitat.sh
++ pushd .
+~/fairo/droidlet/lowlevel/locobot/remote ~/fairo/droidlet/lowlevel/locobot/remote
++ export PYRO_SERIALIZER=pickle
++ PYRO_SERIALIZER=pickle
++ export PYRO_SERIALIZERS_ACCEPTED=pickle
++ PYRO_SERIALIZERS_ACCEPTED=pickle
++ export PYRO_SOCK_REUSE=True
++ PYRO_SOCK_REUSE=True
++ echo 'Kill matching processes...'
+Kill matching processes...
++ ./kill_pyro_habitat.sh
+Killing navigation, planning, slam, remote and naming processes
++ echo 'Launching environment ...'
+Launching environment ...
+++ hostname -I
+++ cut -f1 '-d '
++ default_ip=172.16.1.31
++ ip=172.16.1.31
++ export LOCAL_IP=172.16.1.31
++ LOCAL_IP=172.16.1.31
++ export LOCOBOT_IP=172.16.1.31
++ LOCOBOT_IP=172.16.1.31
++ echo 'Binding to Host IP' 172.16.1.31
+Binding to Host IP 172.16.1.31
++ BGPID=122748
++ sleep 4
++ python -m Pyro4.naming -n 172.16.1.31
++ echo 172.16.1.31
+172.16.1.31
++ timeout 1m bash -c 'until python check_connected.py remotelocobot; do sleep 1; done;'
++ python remote_locobot.py --ip 172.16.1.31
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I1125 08:33:58.002887 122758 ManagedFileBasedContainer.h:210] <Dataset>::convertFilenameToPassedExt : Filename : default changed to proposed scene_dataset_config.json filename : default.scene_dataset_config.json
+I1125 08:33:58.002923 122758 AttributesManagerBase.h:365] <Dataset>::createFromJsonOrDefaultInternal : Proposing JSON name : default.scene_dataset_config.json from original name : default | This file  does not exist.
+I1125 08:33:58.003015 122758 AssetAttributesManager.cpp:120] Asset attributes (capsule3DSolid : capsule3DSolid_hemiRings_4_cylRings_1_segments_12_halfLen_0.75_useTexCoords_false_useTangents_false) created and registered.
+I1125 08:33:58.003067 122758 AssetAttributesManager.cpp:120] Asset attributes (capsule3DWireframe : capsule3DWireframe_hemiRings_8_cylRings_1_segments_16_halfLen_1) created and registered.
+I1125 08:33:58.003119 122758 AssetAttributesManager.cpp:120] Asset attributes (coneSolid : coneSolid_segments_12_halfLen_1.25_rings_1_useTexCoords_false_useTangents_false_capEnd_true) created and registered.
+I1125 08:33:58.003152 122758 AssetAttributesManager.cpp:120] Asset attributes (coneWireframe : coneWireframe_segments_32_halfLen_1.25) created and registered.
+I1125 08:33:58.003172 122758 AssetAttributesManager.cpp:120] Asset attributes (cubeSolid : cubeSolid) created and registered.
+I1125 08:33:58.003186 122758 AssetAttributesManager.cpp:120] Asset attributes (cubeWireframe : cubeWireframe) created and registered.
+I1125 08:33:58.003230 122758 AssetAttributesManager.cpp:120] Asset attributes (cylinderSolid : cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true) created and registered.
+I1125 08:33:58.003268 122758 AssetAttributesManager.cpp:120] Asset attributes (cylinderWireframe : cylinderWireframe_rings_1_segments_32_halfLen_1) created and registered.
+I1125 08:33:58.003288 122758 AssetAttributesManager.cpp:120] Asset attributes (icosphereSolid : icosphereSolid_subdivs_1) created and registered.
+I1125 08:33:58.003305 122758 AssetAttributesManager.cpp:120] Asset attributes (icosphereWireframe : icosphereWireframe_subdivs_1) created and registered.
+I1125 08:33:58.003333 122758 AssetAttributesManager.cpp:120] Asset attributes (uvSphereSolid : uvSphereSolid_rings_8_segments_16_useTexCoords_false_useTangents_false) created and registered.
+I1125 08:33:58.003360 122758 AssetAttributesManager.cpp:120] Asset attributes (uvSphereWireframe : uvSphereWireframe_rings_16_segments_32) created and registered.
+I1125 08:33:58.003371 122758 AssetAttributesManager.cpp:108] ::constructor : Built default primitive asset templates : 12
+I1125 08:33:58.004168 122758 SceneDatasetAttributesManager.cpp:36] File (default) not found, so new default dataset attributes created and registered.
+I1125 08:33:58.004175 122758 MetadataMediator.cpp:127] ::createSceneDataset : Dataset default successfully created.
+I1125 08:33:58.004184 122758 AttributesManagerBase.h:365] <Physics Manager>::createFromJsonOrDefaultInternal : Proposing JSON name : ./data/default.physics_config.json from original name : ./data/default.physics_config.json | This file  does not exist.
+I1125 08:33:58.004220 122758 PhysicsAttributesManager.cpp:26] File (./data/default.physics_config.json) not found, so new default physics manager attributes created and registered.
+I1125 08:33:58.004225 122758 MetadataMediator.cpp:212] ::setActiveSceneDatasetName : Previous active dataset  changed to default successfully.
+I1125 08:33:58.004231 122758 ManagedFileBasedContainer.h:210] <Physics Manager>::convertFilenameToPassedExt : Filename : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/default.phys_scene_config.json changed to proposed physics_config.json filename : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/default.phys_scene_config.physics_config.json
+I1125 08:33:58.004238 122758 AttributesManagerBase.h:365] <Physics Manager>::createFromJsonOrDefaultInternal : Proposing JSON name : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/default.phys_scene_config.physics_config.json from original name : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/default.phys_scene_config.json | This file  does not exist.
+I1125 08:33:58.004257 122758 PhysicsAttributesManager.cpp:26] File (/home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/default.phys_scene_config.json) exists but is not a recognized config filename extension, so new default physics manager attributes created and registered.
+I1125 08:33:58.004263 122758 MetadataMediator.cpp:68] ::setSimulatorConfiguration : Set new simulator config for scene/stage : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply and dataset : default which is currently active dataset.
+Renderer: Tesla T4/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 460.73.01
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_ES2_compatibility
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+I1125 08:33:58.053318 122758 ManagedFileBasedContainer.h:210] <Scene Instance>::convertFilenameToPassedExt : Filename : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply changed to proposed scene_instance.json filename : /Replica-Dataset/apartment_0/habitat/mesh_semantic.scene_instance.json
+I1125 08:33:58.053336 122758 MetadataMediator.cpp:311] ::getSceneAttributesByName : Dataset : default has no preloaded SceneAttributes or StageAttributes named : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply so loading/creating a new StageAttributes with this name, and then creating a SceneAttributes with the same name that references this stage.
+I1125 08:33:58.053344 122758 ManagedFileBasedContainer.h:210] <Stage Template>::convertFilenameToPassedExt : Filename : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply changed to proposed stage_config.json filename : /Replica-Dataset/apartment_0/habitat/mesh_semantic.stage_config.json
+I1125 08:33:58.053351 122758 AttributesManagerBase.h:365] <Stage Template>::createFromJsonOrDefaultInternal : Proposing JSON name : /Replica-Dataset/apartment_0/habitat/mesh_semantic.stage_config.json from original name : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply | This file  does not exist.
+I1125 08:33:58.053462 122758 AbstractObjectAttributesManagerBase.h:183] File (/Replica-Dataset/apartment_0/habitat/mesh_semantic.ply) exists but is not a recognized config filename extension, so new default Stage Template attributes created and registered.
+I1125 08:33:58.053500 122758 SceneDatasetAttributes.cpp:45] ::addNewSceneInstanceToDataset : Dataset : 'default' : Stage Attributes '/Replica-Dataset/apartment_0/habitat/mesh_semantic.ply' specified in Scene Attributes exists in dataset library.
+I1125 08:33:58.053514 122758 SceneDatasetAttributes.cpp:79] ::addNewSceneInstanceToDataset : Dataset : 'default' : Lighting Layout Attributes 'no_lights' specified in Scene Attributes but does not exist in dataset, so creating.
+I1125 08:33:58.053519 122758 ManagedFileBasedContainer.h:210] <Lighting Layout>::convertFilenameToPassedExt : Filename : no_lights changed to proposed lighting_config.json filename : no_lights.lighting_config.json
+I1125 08:33:58.053525 122758 ManagedFileBasedContainer.h:210] <Lighting Layout>::convertFilenameToPassedExt : Filename : no_lights changed to proposed lighting_config.json filename : no_lights.lighting_config.json
+I1125 08:33:58.053531 122758 AttributesManagerBase.h:365] <Lighting Layout>::createFromJsonOrDefaultInternal : Proposing JSON name : no_lights.lighting_config.json from original name : no_lights | This file  does not exist.
+I1125 08:33:58.053547 122758 LightLayoutAttributesManager.cpp:34] File (no_lights) not found, so new default light layout attributes created and registered.
+I1125 08:33:58.053555 122758 Simulator.cpp:206] ::setSceneInstanceAttributes : Navmesh file location in scene instance : /Replica-Dataset/apartment_0/habitat/mesh_semantic.navmesh
+I1125 08:33:58.053561 122758 Simulator.cpp:213] ::setSceneInstanceAttributes : Loading navmesh from /Replica-Dataset/apartment_0/habitat/mesh_semantic.navmesh
+I1125 08:33:58.053668 122758 Simulator.cpp:216] ::setSceneInstanceAttributes : Navmesh Loaded.
+I1125 08:33:58.053683 122758 SceneGraph.h:85] Created DrawableGroup: 
+I1125 08:33:58.053689 122758 Simulator.cpp:251] ::setSceneInstanceAttributes : SceneInstance : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply proposed Semantic Scene Descriptor filename : /Replica-Dataset/apartment_0/habitat/mesh_semantic.scn
+E1125 08:33:58.053695 122758 SemanticScene.h:155] ::loadSemanticSceneDescriptor : File /Replica-Dataset/apartment_0/habitat/mesh_semantic.scn does not exist.  Aborting load.
+W1125 08:33:58.055019 122758 Simulator.cpp:275] ::setSceneInstanceAttributes : All attempts to load SSD with SceneAttributes-provided name /Replica-Dataset/apartment_0/habitat/mesh_semantic.scn : exist : 0 : loaded as expected type : 1
+W1125 08:33:58.055032 122758 ResourceManager.cpp:166] :
+---
+Physics was enabled and Bullet physics engine was specified, but the project is built without Bullet support. Objects added to the scene will be restricted to kinematic updates only. Reinstall with --bullet to enable Bullet dynamics.
+---
+I1125 08:33:58.055307 122758 Simulator.cpp:324] ::createSceneInstance : Using scene instance-specified Light key : -no_lights-
+I1125 08:33:58.055320 122758 MetadataMediator.cpp:68] ::setSimulatorConfiguration : Set new simulator config for scene/stage : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply and dataset : default which is currently active dataset.
+I1125 08:33:58.055343 122758 Simulator.cpp:382] ::createSceneInstance : Start to load stage named : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply with render asset : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply and collision asset : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply
+W1125 08:33:58.055369 122758 ResourceManager.cpp:252] ::loadStage : Not loading semantic mesh - File Name : /Replica-Dataset/apartment_0/habitat/mesh_semantic_semantic.ply does not exist.
+I1125 08:33:58.055374 122758 ResourceManager.cpp:285] ::loadStage : start load render asset /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply.
+I1125 08:33:58.055378 122758 ResourceManager.cpp:699] ::loadStageInternal : Attempting to load stage /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply 
+I1125 08:34:06.690522 122758 Simulator.cpp:400] ::createSceneInstance : Successfully loaded stage named : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply
+I1125 08:34:06.690570 122758 MetadataMediator.cpp:262] ::getSceneAttributesByName : Query dataset : default for SceneAttributes named : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply yields 1 candidates.  Using /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply.
+I1125 08:34:06.690594 122758 SceneDatasetAttributes.cpp:45] ::addNewSceneInstanceToDataset : Dataset : 'default' : Stage Attributes '/Replica-Dataset/apartment_0/habitat/mesh_semantic.ply' specified in Scene Attributes exists in dataset library.
+I1125 08:34:06.690601 122758 SceneDatasetAttributes.cpp:85] ::addNewSceneInstanceToDataset : Dataset : 'default' : Lighting Layout Attributes no_lights specified in Scene Attributes exists in dataset library.
+I1125 08:34:06.690610 122758 MetadataMediator.cpp:262] ::getSceneAttributesByName : Query dataset : default for SceneAttributes named : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply yields 1 candidates.  Using /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply.
+I1125 08:34:06.690616 122758 SceneDatasetAttributes.cpp:45] ::addNewSceneInstanceToDataset : Dataset : 'default' : Stage Attributes '/Replica-Dataset/apartment_0/habitat/mesh_semantic.ply' specified in Scene Attributes exists in dataset library.
+I1125 08:34:06.690620 122758 SceneDatasetAttributes.cpp:85] ::addNewSceneInstanceToDataset : Dataset : 'default' : Lighting Layout Attributes no_lights specified in Scene Attributes exists in dataset library.
+I1125 08:34:06.690726 122758 Simulator.cpp:182] Simulator::reconfigure() : createSceneInstance success == true for active scene name : /Replica-Dataset/apartment_0/habitat/mesh_semantic.ply with renderer.
+I1125 08:34:06.691122 122758 simulator.py:221] Loaded navmesh /Replica-Dataset/apartment_0/habitat/mesh_semantic.navmesh
+I1125 08:34:06.761926 122758 ManagedFileBasedContainer.h:210] <Object Template>::convertFilenameToPassedExt : Filename : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_male changed to proposed object_config.json filename : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_male.object_config.json
+I1125 08:34:06.761991 122758 AttributesManagerBase.h:242] <Object Template>::loadAllFileBasedTemplates : Loading 1 Object Template templates found in /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets
+I1125 08:34:06.762001 122758 AttributesManagerBase.h:247] ::loadAllFileBasedTemplates : Load Object Template template: human_male.object_config.json
+I1125 08:34:06.762019 122758 AttributesManagerBase.h:365] <Object Template>::createFromJsonOrDefaultInternal : Proposing JSON name : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_male.object_config.json from original name : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_male.object_config.json | This file  exists.
+I1125 08:34:06.762274 122758 AbstractObjectAttributesManagerBase.h:183] JSON Configuration File (/home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_male.object_config.json) based Object Template attributes created and registered.
+I1125 08:34:06.762292 122758 AttributesManagerBase.h:263] <Object Template>::loadAllFileBasedTemplates : Loaded file-based templates: 1
+I1125 08:34:06.762322 122758 ManagedFileBasedContainer.h:210] <Object Template>::convertFilenameToPassedExt : Filename : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_female changed to proposed object_config.json filename : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_female.object_config.json
+I1125 08:34:06.762338 122758 AttributesManagerBase.h:242] <Object Template>::loadAllFileBasedTemplates : Loading 1 Object Template templates found in /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets
+I1125 08:34:06.762347 122758 AttributesManagerBase.h:247] ::loadAllFileBasedTemplates : Load Object Template template: human_female.object_config.json
+I1125 08:34:06.762362 122758 AttributesManagerBase.h:365] <Object Template>::createFromJsonOrDefaultInternal : Proposing JSON name : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_female.object_config.json from original name : /home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_female.object_config.json | This file  exists.
+I1125 08:34:06.762603 122758 AbstractObjectAttributesManagerBase.h:183] JSON Configuration File (/home/ubuntu/fairo/droidlet/lowlevel/locobot/tests/test_assets/human_female.object_config.json) based Object Template attributes created and registered.
+I1125 08:34:06.762617 122758 AttributesManagerBase.h:263] <Object Template>::loadAllFileBasedTemplates : Loaded file-based templates: 1
+I1125 08:34:06.762701 122758 ResourceManager.cpp:1280] Importing Basis files as BC7 for rp_dennis_posed_scaled.glb
+W1125 08:34:08.108340 122758 PhysicsManager.cpp:248] ::addObject : simpleObjectHandle : human_male
+W1125 08:34:08.108372 122758 PhysicsManager.cpp:251] ::addObject : newObjectHandle : human_male_:0000
+I1125 08:34:08.108441 122758 ResourceManager.cpp:1280] Importing Basis files as BC7 for rp_mei_posed_scaled.glb
+W1125 08:34:08.187950 122758 PhysicsManager.cpp:248] ::addObject : simpleObjectHandle : human_female
+W1125 08:34:08.187989 122758 PhysicsManager.cpp:251] ::addObject : newObjectHandle : human_female_:0000
+I1125 08:34:08.619725 122758 PathFinder.cpp:382] Building navmesh with 187x295 cells
+I1125 08:34:09.849750 122758 PathFinder.cpp:652] Created navmesh with 411 vertices 215 polygons
+I1125 08:34:09.854414 122758 Simulator.cpp:798] reconstruct navmesh successful
++ true
++ ./launch_navigation.sh
++ timeout 10s bash -c 'until python check_connected.py slam; do sleep 0.5; done;'
++ python slam_service.py
++ true
++ timeout 10s bash -c 'until python check_connected.py planner; do sleep 0.5; done;'
++ python planning_service.py
++ true
++ timeout 10s bash -c 'until python check_connected.py navigation; do sleep 0.5; done;'
++ python navigation_service.py
++ true
++ popd
+~/fairo/droidlet/lowlevel/locobot/remote
+Navigation Server is started...
+exploring 1 step
+go_to_absolute  initial location:  (-0.0, -0.0, -0.0)  goal:  (19, 19, 0)  short-term goal: (0.25000000000000566, 0.25000000000000566, 0.7853981633974483)  reached location:  (0.2499980926513672, 0.25000014901161194, 0.7853985590363697)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (0.2499980926513672, 0.25000014901161194, 0.7853985590363697)  goal:  (19, 19, 0)  short-term goal: (5.684341886080802e-15, 0.5000000000000057, 2.3561909735038173)  reached location:  (9.5367431640625e-07, 0.499999076128006, 2.3561950023567935)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (9.5367431640625e-07, 0.499999076128006, 2.3561950023567935)  goal:  (19, 19, 0)  short-term goal: (0.25000000000000566, 0.7500000000000057, 0.785401918490293)  reached location:  (0.2499990463256836, 0.7499994039535522, 0.7853986691713752)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (0.2499990463256836, 0.7499994039535522, 0.7853986691713752)  goal:  (19, 19, 0)  short-term goal: (0.5000000000000029, 1.0000000000000058, 0.7853974481439336)  reached location:  (0.4999980926513672, 1.0000005960464478, 0.7853986691713752)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (0.4999980926513672, 1.0000005960464478, 0.7853986691713752)  goal:  (19, 19, 0)  short-term goal: (0.6500000000000028, 1.2500000000000058, 1.030370164839466)  reached location:  (0.6500015258789062, 1.2499996423721313, 1.030370093111298)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (0.6500015258789062, 1.2499996423721313, 1.030370093111298)  goal:  (19, 19, 0)  short-term goal: (0.7000000000000028, 1.5000000000000058, 1.3734069108071543)  reached location:  (0.7000031471252441, 1.4999995231628418, 1.3734074048524072)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (0.7000031471252441, 1.4999995231628418, 1.3734074048524072)  goal:  (19, 19, 0)  short-term goal: (0.9500000000000028, 1.7500000000000058, 0.7854054113609671)  reached location:  (0.9500002861022949, 1.7500005960464478, 0.7854058214636898)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (0.9500002861022949, 1.7500005960464478, 0.7854058214636898)  goal:  (19, 19, 0)  short-term goal: (1.2000000000000028, 2.0000000000000058, 0.7853975435080548)  reached location:  (1.199997901916504, 2.00000262260437, 0.7854058214636898)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (1.199997901916504, 2.00000262260437, 0.7854058214636898)  goal:  (19, 19, 0)  short-term goal: (1.4500000000000028, 2.0000000000000058, -1.0490329418643091e-05)  reached location:  (1.4500012397766113, 1.9999996423721313, -1.0426801054469371e-05)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (1.4500012397766113, 1.9999996423721313, -1.0426801054469371e-05)  goal:  (19, 19, 0)  short-term goal: (1.7000000000000028, 1.9500000000000057, -0.197395138030243)  reached location:  (1.700002670288086, 1.9500011205673218, -0.19739511231967422)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (1.700002670288086, 1.9500011205673218, -0.19739511231967422)  goal:  (19, 19, 0)  short-term goal: (1.9500000000000028, 1.7000000000000057, -0.7854057451317455)  reached location:  (1.9500000476837158, 1.699999451637268, -0.7854061518682088)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (1.9500000476837158, 1.699999451637268, -0.7854061518682088)  goal:  (19, 19, 0)  short-term goal: (2.200000000000003, 1.4500000000000057, -0.7853971620382052)  reached location:  (2.199997901916504, 1.4499973058700562, -0.7854061518682088)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (2.199997901916504, 1.4499973058700562, -0.7854061518682088)  goal:  (19, 19, 0)  short-term goal: (2.450000000000003, 1.2000000000000057, -0.7853885789591261)  reached location:  (2.449995756149292, 1.1999951601028442, -0.7854061518682088)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (2.449995756149292, 1.1999951601028442, -0.7854061518682088)  goal:  (19, 19, 0)  short-term goal: (2.700000000000003, 1.1000000000000056, -0.3804838344040252)  reached location:  (2.6999969482421875, 1.0999993085861206, -0.38048386941741746)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (2.6999969482421875, 1.0999993085861206, -0.38048386941741746)  goal:  (19, 19, 0)  short-term goal: (2.950000000000003, 1.1000000000000056, 2.7656217800992787e-06)  reached location:  (2.9499998092651367, 1.0999993085861206, 2.7939679512182937e-06)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (2.9499998092651367, 1.0999993085861206, 2.7939679512182937e-06)  goal:  (19, 19, 0)  short-term goal: (3.200000000000003, 1.1000000000000056, 2.7656534301046584e-06)  reached location:  (3.1999998092651367, 1.0999993085861206, 2.7939679512182937e-06)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (3.1999998092651367, 1.0999993085861206, 2.7939679512182937e-06)  goal:  (19, 19, 0)  short-term goal: (3.450000000000003, 1.1000000000000056, 2.7656534301046584e-06)  reached location:  (3.4499998092651367, 1.0999993085861206, 2.7939679512182937e-06)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (3.4499998092651367, 1.0999993085861206, 2.7939679512182937e-06)  goal:  (19, 19, 0)  short-term goal: (3.700000000000003, 1.1000000000000056, 2.7656534301046584e-06)  reached location:  (3.6999998092651367, 1.0999993085861206, 2.7939679512182937e-06)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (3.6999998092651367, 1.0999993085861206, 2.7939679512182937e-06)  goal:  (19, 19, 0)  short-term goal: (3.950000000000003, 1.1000000000000056, 2.7656534301046584e-06)  reached location:  (3.9499998092651367, 1.0999993085861206, 2.7939679512182937e-06)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (3.9499998092651367, 1.0999993085861206, 2.7939679512182937e-06)  goal:  (19, 19, 0)  short-term goal: (4.200000000000003, 1.0500000000000056, -0.19739275384714602)  reached location:  (4.199999809265137, 1.050000548362732, -0.19739277555843798)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (4.199999809265137, 1.050000548362732, -0.19739277555843798)  goal:  (19, 19, 0)  short-term goal: (4.4500000000000055, 0.8000000000000057, -0.7853988786521059)  reached location:  (4.449999809265137, 0.7999998331069946, -0.7853993567047591)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (4.449999809265137, 0.7999998331069946, -0.7853993567047591)  goal:  (19, 19, 0)  short-term goal: (4.7000000000000055, 0.5500000000000057, -0.7853974481417226)  reached location:  (4.700000286102295, 0.549999475479126, -0.7853993567047591)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (4.700000286102295, 0.549999475479126, -0.7853993567047591)  goal:  (19, 19, 0)  short-term goal: (4.9500000000000055, 0.5500000000000057, 2.098085919985597e-06)  reached location:  (4.949999809265137, 0.5500001907348633, 1.8855619146046461e-06)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (4.949999809265137, 0.5500001907348633, 1.8855619146046461e-06)  goal:  (19, 19, 0)  short-term goal: (5.2000000000000055, 0.5500000000000057, -7.629388482225021e-07)  reached location:  (5.199999809265137, 0.5500009059906006, 1.8855619146046461e-06)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (5.199999809265137, 0.5500009059906006, 1.8855619146046461e-06)  goal:  (19, 19, 0)  short-term goal: (5.4500000000000055, 0.3000000000000057, -0.7853995939057627)  reached location:  (5.450000286102295, 0.30000004172325134, -0.7853998334162183)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (5.450000286102295, 0.30000004172325134, -0.7853998334162183)  goal:  (19, 19, 0)Planner Server is started...
+goal_within_threshold:  False 26.516504294495522 0.049999999999 [0.25 0.25] (19, 19, 0)
+goal_within_threshold:  False 26.5165055378276 0.049999999999 (0.2499980926513672, 0.25000014901161194, 0.7853985590363697) (19, 19, 0)
+goal_within_threshold:  False 26.518861212352228 0.049999999999 [5.684e-15 5.000e-01] (19, 19, 0)
+goal_within_threshold:  False 26.518861173580618 0.049999999999 (9.5367431640625e-07, 0.499999076128006, 2.3561950023567935) (19, 19, 0)
+goal_within_threshold:  False 26.165339669111873 0.049999999999 [0.25 0.75] (19, 19, 0)
+goal_within_threshold:  False 26.165340768246903 0.049999999999 (0.2499990463256836, 0.7499994039535522, 0.7853986691713752) (19, 19, 0)
+goal_within_threshold:  False 25.811818998280607 0.049999999999 [0.5 1. ] (19, 19, 0)
+goal_within_threshold:  False 25.81181994967095 0.049999999999 (0.4999980926513672, 1.0000005960464478, 0.7853986691713752) (19, 19, 0)
+goal_within_threshold:  False 25.53008029756271 0.049999999999 [0.65 1.25] (19, 19, 0)
+goal_within_threshold:  False 25.5300794494658 0.049999999999 (0.6500015258789062, 1.2499996423721313, 1.030370093111298) (19, 19, 0)
+goal_within_threshold:  False 25.320742485164207 0.049999999999 [0.7 1.5] (19, 19, 0)
+goal_within_threshold:  False 25.32074054020788 0.049999999999 (0.7000031471252441, 1.4999995231628418, 1.3734074048524072) (19, 19, 0)
+goal_within_threshold:  False 24.967278586181546 0.049999999999 [0.95 1.75] (19, 19, 0)
+goal_within_threshold:  False 24.967277967533928 0.049999999999 (0.9500002861022949, 1.7500005960464478, 0.7854058214636898) (19, 19, 0)
+goal_within_threshold:  False 24.613817257792416 0.049999999999 [1.2 2. ] (19, 19, 0)
+goal_within_threshold:  False 24.613816963714406 0.049999999999 (1.199997901916504, 2.00000262260437, 0.7854058214636898) (19, 19, 0)
+goal_within_threshold:  False 24.433634604781982 0.049999999999 [1.45 2.  ] (19, 19, 0)
+goal_within_threshold:  False 24.433633963108928 0.049999999999 (1.4500012397766113, 1.9999996423721313, -1.0426801054469371e-05) (19, 19, 0)
+goal_within_threshold:  False 24.2897612174348 0.049999999999 [1.7  1.95] (19, 19, 0)
+goal_within_threshold:  False 24.28975852899108 0.049999999999 (1.700002670288086, 1.9500011205673218, -0.19739511231967422) (19, 19, 0)
+goal_within_threshold:  False 24.2897612174348 0.049999999999 [1.95 1.7 ] (19, 19, 0)
+goal_within_threshold:  False 24.289761574526338 0.049999999999 (1.9500000476837158, 1.699999451637268, -0.7854061518682088) (19, 19, 0)
+goal_within_threshold:  False 24.294906873663866 0.049999999999 [2.2  1.45] (19, 19, 0)
+goal_within_threshold:  False 24.294910270663237 0.049999999999 (2.199997901916504, 1.4499973058700562, -0.7854061518682088) (19, 19, 0)
+goal_within_threshold:  False 24.305194917959405 0.049999999999 [2.45 1.2 ] (19, 19, 0)
+goal_within_threshold:  False 24.305201352217566 0.049999999999 (2.449995756149292, 1.1999951601028442, -0.7854061518682088) (19, 19, 0)
+goal_within_threshold:  False 24.20950226667206 0.049999999999 [2.7 1.1] (19, 19, 0)
+goal_within_threshold:  False 24.209504832605134 0.049999999999 (2.6999969482421875, 1.0999993085861206, -0.38048386941741746) (19, 19, 0)
+goal_within_threshold:  False 24.04189052466548 0.049999999999 [2.95 1.1 ] (19, 19, 0)
+goal_within_threshold:  False 24.041891166778175 0.049999999999 (2.9499998092651367, 1.0999993085861206, 2.7939679512182937e-06) (19, 19, 0)
+goal_within_threshold:  False 23.875719884434893 0.049999999999 [3.2 1.1] (19, 19, 0)
+goal_within_threshold:  False 23.875720529019414 0.049999999999 (3.1999998092651367, 1.0999993085861206, 2.7939679512182937e-06) (19, 19, 0)
+goal_within_threshold:  False 23.711020644417644 0.049999999999 [3.45 1.1 ] (19, 19, 0)
+goal_within_threshold:  False 23.71102129146848 0.049999999999 (3.4499998092651367, 1.0999993085861206, 2.7939679512182937e-06) (19, 19, 0)
+goal_within_threshold:  False 23.54782367863323 0.049999999999 [3.7 1.1] (19, 19, 0)
+goal_within_threshold:  False 23.54782432814344 0.049999999999 (3.6999998092651367, 1.0999993085861206, 2.7939679512182937e-06) (19, 19, 0)
+goal_within_threshold:  False 23.38616043731847 0.049999999999 [3.95 1.1 ] (19, 19, 0)
+goal_within_threshold:  False 23.386161089279632 0.049999999999 (3.9499998092651367, 1.0999993085861206, 2.7939679512182937e-06) (19, 19, 0)
+goal_within_threshold:  False 23.264619059851373 0.049999999999 [4.2  1.05] (19, 19, 0)
+goal_within_threshold:  False 23.264618758095526 0.049999999999 (4.199999809265137, 1.050000548362732, -0.19739277555843798) (19, 19, 0)
+goal_within_threshold:  False 23.30112658220627 0.049999999999 [4.45 0.8 ] (19, 19, 0)
+goal_within_threshold:  False 23.301126831663957 0.049999999999 (4.449999809265137, 0.7999998331069946, -0.7853993567047591) (19, 19, 0)
+goal_within_threshold:  False 23.342932549274945 0.049999999999 [4.7  0.55] (19, 19, 0)
+goal_within_threshold:  False 23.34293278858282 0.049999999999 (4.700000286102295, 0.549999475479126, -0.7853993567047591) (19, 19, 0)
+goal_within_threshold:  False 23.19062310503967 0.049999999999 [4.95 0.55] (19, 19, 0)
+goal_within_threshold:  False 23.190623068851195 0.049999999999 (4.949999809265137, 0.5500001907348633, 1.8855619146046461e-06) (19, 19, 0)
+goal_within_threshold:  False 23.040019531241715 0.049999999999 [5.2  0.55] (19, 19, 0)
+goal_within_threshold:  False 23.0400189199842 0.049999999999 (5.199999809265137, 0.5500009059906006, 1.8855619146046461e-06) (19, 19, 0)
+goal_within_threshold:  False 23.093126683063073 0.049999999999 [5.45 0.3 ] (19, 19, 0)
+goal_within_threshold:  False 23.093126481405204 0.049999999999 (5.450000286102295, 0.30000004172325134, -0.7853998334162183) (19, 19, 0)
+goal_within_threshold:  False 23.15151182968403 0.049999999999 [5.7  0.05] (19, 19, 0)
+goal_within_threshold:  False 23.151512398581595 0.049999999999 (5.6999993324279785, 0.049999773502349854, -0.7853998334162183) (19, 19, 0)
+goal_within_threshold:  False 23.215135149294298 0.049999999999 [ 5.95 -0.2 ] (19, 19, 0)
+goal_within_threshold:  False 23.21513591214716 0.049999999999 (5.949999809265137, -0.2000007927417755, -0.7853998334162183) (19, 19, 0)
+goal_within_threshold:  False 23.283953702067002 0.049999999999 [ 6.2  -0.45] (19, 19, 0)
+goal_within_threshold:  False 23.28395451891901 0.049999999999 (6.199999809265137, -0.4500008523464203, -0.7853998334162183) (19, 19, 0)
+goal_within_threshold:  False 23.357921568495765 0.049999999999 [ 6.45 -0.7 ] (19, 19, 0)
+goal_within_threshold:  False 23.35792318357835 0.049999999999 (6.449998378753662, -0.7000008821487427, -0.7853998334162183) (19, 19, 0)
+goal_within_threshold:  False 23.43698999445107 0.049999999999 [ 6.7  -0.95] (19, 19, 0)
+goal_within_threshold:  False 23.43699397052029 0.049999999999 (6.6999969482421875, -0.9500027894973755, -0.7853998334162183) (19, 19, 0)
+goal_within_threshold:  False 23.57249456464037 0.049999999999 [ 6.85 -1.2 ] (19, 19, 0)
+goal_within_threshold:  False 23.572494246040865 0.049999999999 (6.849999904632568, -1.1999995708465576, -1.030362936816154) (19, 19, 0)
+goal_within_threshold:  False 23.736153858618284 0.049999999999 [ 6.95 -1.45] (19, 19, 0)
+goal_within_threshold:  False 23.736153659033466 0.049999999999 (6.94999885559082, -1.4499990940093994, -1.1902903031817935) (19, 19, 0)
+goal_within_threshold:  False 23.740261161158266 0.049999999999 [ 7.2 -1.6] (19, 19, 0)
+goal_within_threshold:  False 23.740260595748914 0.049999999999 (7.200000762939453, -1.5999997854232788, -0.5404208024718494) (19, 19, 0)
+goal_within_threshold:  False 23.399252124800903 0.049999999999 [ 7.45 -1.35] (19, 19, 0)
+goal_within_threshold:  False 12.445883248957783 0.049999999999 [ 7.1 -1.7] (-1.5999997854232788, 7.200000762939453, 0)
+goal_within_threshold:  False 10.927603115817341 0.049999999999 [ 7.1 -1.7] (-0.4500008523464203, 6.199999809265137, 0)
+goal_within_threshold:  False 11.281067650502255 0.049999999999 [ 7.1 -1.7] (-0.7000008821487427, 6.449998378753662, 0)
+goal_within_threshold:  False 11.634538823752044 0.049999999999 [ 7.1 -1.7] (-0.9500027894973755, 6.6999969482421875, 0)
+goal_within_threshold:  False 9.513804995866947 0.049999999999 [ 7.1 -1.7] (0.5500009059906006, 5.199999809265137, 0)
+goal_within_threshold:  False 8.80411834068654 0.049999999999 [ 7.1 -1.7] (0.7999998331069946, 4.449999809265137, 0)
+goal_within_threshold:  False 9.15764765282729 0.049999999999 [ 7.1 -1.7] (0.549999475479126, 4.700000286102295, 0)
+goal_within_threshold:  False 11.916060223298217 0.049999999999 [ 7.1 -1.7] (-1.1999995708465576, 6.849999904632568, 0)
+goal_within_threshold:  False 12.162440738161237 0.049999999999 [ 7.1 -1.7] (-1.4499990940093994, 6.94999885559082, 0)
+goal_within_threshold:  False 6.77956600023206 0.049999999999 [ 7.1  -1.55] (0.499999076128006, 9.5367431640625e-07, 0)
+goal_within_threshold:  False 7.907117447742761 0.049999999999 [ 7.1 -1.7] (1.0999993085861206, 3.4499998092651367, 0)
+goal_within_threshold:  False 8.072174814573241 0.049999999999 [ 7.1 -1.7] (1.0999993085861206, 3.6999998092651367, 0)
+goal_within_threshold:  False 8.241511156436246 0.049999999999 [ 7.1 -1.7] (1.0999993085861206, 3.9499998092651367, 0)
+goal_within_threshold:  False 8.45059116950642 0.049999999999 [ 7.1 -1.7] (1.050000548362732, 4.199999809265137, 0)
+goal_within_threshold:  False 7.08254834731748 0.049999999999 [ 7.1  -1.55] (0.25000014901161194, 0.2499980926513672, 0)
+goal_within_threshold:  False 9.867243967989577 0.049999999999 [ 7.1 -1.7] (0.30000004172325134, 5.450000286102295, 0)
+goal_within_threshold:  False 9.334077081565145 0.049999999999 [ 7.1 -1.7] (0.5500001907348633, 4.949999809265137, 0)
+goal_within_threshold:  False 10.220689473492062 0.049999999999 [ 7.1 -1.7] (0.049999773502349854, 5.6999993324279785, 0)
+goal_within_threshold:  False 10.574143400568538 0.049999999999 [ 7.1 -1.7] (-0.2000007927417755, 5.949999809265137, 0)
+goal_within_threshold:  False 6.08974595652705 0.049999999999 [ 7.1  -1.55] (1.9500011205673218, 1.700002670288086, 0)
+goal_within_threshold:  False 6.435060703373655 0.049999999999 [ 7.1  -1.55] (1.699999451637268, 1.9500000476837158, 0)
+goal_within_threshold:  False 6.781225162760328 0.049999999999 [ 7.1  -1.55] (1.4499973058700562, 2.199997901916504, 0)
+goal_within_threshold:  False 7.1281149794333585 0.049999999999 [ 7.1  -1.55] (1.1999951601028442, 2.449995756149292, 0)
+goal_within_threshold:  False 24.081632004496697 0.049999999999 [ 6.95 -1.85] (19, 19, 0)
+goal_within_threshold:  False 24.081631939648997 0.049999999999 (6.949997901916504, -1.8499987125396729, -2.3561960753627313) (19, 19, 0)
+goal_within_threshold:  False 24.42334948363962 0.049999999999 [ 6.7 -2.1] (19, 19, 0)
+goal_within_threshold:  False 24.423348534782367 0.049999999999 (6.699995994567871, -2.099996566772461, -2.3561960753627313) (19, 19, 0)
+goal_within_threshold:  False 24.714874064012538 0.049999999999 [ 6.55 -2.35] (19, 19, 0)
+goal_within_threshold:  False 24.7148731644518 0.049999999999 (6.549998760223389, -2.3499982357025146, -2.111198111456924) (19, 19, 0)
+goal_within_threshold:  False 24.931155207891987 0.049999999999 [ 6.55 -2.6 ] (19, 19, 0)
+goal_within_threshold:  False 24.931153870973755 0.049999999999 (6.550002098083496, -2.5999996662139893, -1.570790004767778) (19, 19, 0)
+goal_within_threshold:  False 25.148061555515557 0.049999999999 [ 6.55 -2.85] (19, 19, 0)
+goal_within_threshold:  False 25.14805881040971 0.049999999999 (6.550004959106445, -2.8499996662139893, -1.570790004767778) (19, 19, 0)
+goal_within_threshold:  False 25.414808675258595 0.049999999999 [ 6.45 -3.1 ] (19, 19, 0)
+goal_within_threshold:  False 25.414809751269498 0.049999999999 (6.4499993324279785, -3.1000008583068848, -1.9513187179192115) (19, 19, 0)
+goal_within_threshold:  False 25.71244834705555 0.049999999999 [ 6.2 -3.3] (19, 19, 0)
+goal_within_threshold:  False 25.71245105814806 0.049999999999 (6.200000286102295, -3.3000032901763916, -2.4668522465501197) (19, 19, 0)
+goal_within_threshold:  False 25.967383387626864 0.049999999999 [ 5.95 -3.45] (19, 19, 0)
+goal_within_threshold:  False 25.967382254450666 0.049999999999 (5.950000286102295, -3.4499988555908203, -2.601183101065092) (19, 19, 0)
+goal_within_threshold:  False 26.208777155754515 0.049999999999 [ 5.9 -3.7] (19, 19, 0)
+goal_within_threshold:  False 26.208779420882223 0.049999999999 (5.900000095367432, -3.700002670288086, -1.7681917825191722) (19, 19, 0)
+goal_within_threshold:  False 26.302566414705613 0.049999999999 [ 6.15 -3.95] (19, 19, 0)
+goal_within_threshold:  False 13.161497382843397 0.049999999999 [ 5.85 -3.65] (-1.5999997854232788, 7.200000762939453, 0)
+goal_within_threshold:  False 11.692412367945668 0.049999999999 [ 5.85 -3.65] (-0.4500008523464203, 6.199999809265137, 0)
+goal_within_threshold:  False 12.037959910507091 0.049999999999 [ 5.85 -3.65] (-0.7000008821487427, 6.449998378753662, 0)
+goal_within_threshold:  False 12.383960382922528 0.049999999999 [ 5.85 -3.65] (-0.9500027894973755, 6.6999969482421875, 0)
+goal_within_threshold:  False 10.315642831180876 0.049999999999 [ 5.85 -3.65] (0.5500009059906006, 5.199999809265137, 0)
+goal_within_threshold:  False 9.545286721503688 0.049999999999 [ 5.85 -3.65] (0.7999998331069946, 4.449999809265137, 0)
+goal_within_threshold:  False 9.890020745065701 0.049999999999 [ 5.85 -3.65] (0.549999475479126, 4.700000286102295, 0)
+goal_within_threshold:  False 13.101524174451875 0.049999999999 [ 5.85 -3.65] (-1.8499987125396729, 6.949997901916504, 0)
+goal_within_threshold:  False 13.505741476276953 0.049999999999 [ 5.85 -3.65] (-3.700002670288086, 5.900000095367432, 0)
+goal_within_threshold:  False 12.647232580537947 0.049999999999 [ 5.85 -3.65] (-1.1999995708465576, 6.849999904632568, 0)
+goal_within_threshold:  False 12.870507469057493 0.049999999999 [ 5.85 -3.65] (-1.4499990940093994, 6.94999885559082, 0)
+goal_within_threshold:  False 13.366001055183062 0.049999999999 [ 5.85 -3.65] (-3.4499988555908203, 5.950000286102295, 0)
+goal_within_threshold:  False 6.476497266829859 0.049999999999 [ 5.85 -3.65] (0.499999076128006, 9.5367431640625e-07, 0)
+goal_within_threshold:  False 8.542394503884568 0.049999999999 [ 5.85 -3.65] (1.0999993085861206, 3.4499998092651367, 0)
+goal_within_threshold:  False 8.75128583492905 0.049999999999 [ 5.85 -3.65] (1.0999993085861206, 3.6999998092651367, 0)
+goal_within_threshold:  False 8.962282280159581 0.049999999999 [ 5.85 -3.65] (1.0999993085861206, 3.9499998092651367, 0)
+goal_within_threshold:  False 9.201222296042017 0.049999999999 [ 5.85 -3.65] (1.050000548362732, 4.199999809265137, 0)
+goal_within_threshold:  False 6.824220355011573 0.049999999999 [ 5.85 -3.65] (0.25000014901161194, 0.2499980926513672, 0)
+goal_within_threshold:  False 10.658916677783617 0.049999999999 [ 5.85 -3.65] (0.30000004172325134, 5.450000286102295, 0)
+goal_within_threshold:  False 10.101979741494775 0.049999999999 [ 5.85 -3.65] (0.5500001907348633, 4.949999809265137, 0)
+goal_within_threshold:  False 11.002840094438183 0.049999999999 [ 5.85 -3.65] (0.049999773502349854, 5.6999993324279785, 0)
+goal_within_threshold:  False 11.347356781650374 0.049999999999 [ 5.85 -3.65] (-0.2000007927417755, 5.949999809265137, 0)
+goal_within_threshold:  False 6.620613251932617 0.049999999999 [ 5.85 -3.65] (1.9500011205673218, 1.700002670288086, 0)
+goal_within_threshold:  False 6.970115141478552 0.049999999999 [ 5.85 -3.65] (1.699999451637268, 1.9500000476837158, 0)
+goal_within_threshold:  False 7.320006773274069 0.049999999999 [ 5.85 -3.65] (1.4499973058700562, 2.199997901916504, 0)
+goal_within_threshold:  False 7.670234236065176 0.049999999999 [ 5.85 -3.65] (1.1999951601028442, 2.449995756149292, 0)
+goal_within_threshold:  False 13.245472326796211 0.049999999999 [ 5.85 -3.65] (-2.5999996662139893, 6.550002098083496, 0)
+goal_within_threshold:  False 13.406345339350302 0.049999999999 [ 5.85 -3.65] (-2.8499996662139893, 6.550004959106445, 0)
+goal_within_threshold:  False 13.444146155351557 0.049999999999 [ 5.85 -3.65] (-3.3000032901763916, 6.200000286102295, 0)
+goal_within_threshold:  False 13.05085677261324 0.049999999999 [ 5.85 -3.65] (-2.099996566772461, 6.699995994567871, 0)
+goal_within_threshold:  False 13.08739644750181 0.049999999999 [ 5.85 -3.65] (-2.3499982357025146, 6.549998760223389, 0)
+goal_within_threshold:  False 13.494906516117092 0.049999999999 [ 5.85 -3.65] (-3.1000008583068848, 6.4499993324279785, 0)
+goal_within_threshold:  False 26.24847614624513 0.049999999999 [ 5.65 -3.6 ]  short-term goal: (5.7000000000000055, 0.050000000000005686, -0.7853988190488389)  reached location:  (5.6999993324279785, 0.049999773502349854, -0.7853998334162183)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (5.6999993324279785, 0.049999773502349854, -0.7853998334162183)  goal:  (19, 19, 0)  short-term goal: (5.9500000000000055, -0.19999999999999432, -0.7853963752596601)  reached location:  (5.949999809265137, -0.2000007927417755, -0.7853998334162183)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (5.949999809265137, -0.2000007927417755, -0.7853998334162183)  goal:  (19, 19, 0)  short-term goal: (6.2000000000000055, -0.4499999999999943, -0.78539619644178)  reached location:  (6.199999809265137, -0.4500008523464203, -0.7853998334162183)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.199999809265137, -0.4500008523464203, -0.7853998334162183)  goal:  (19, 19, 0)  short-term goal: (6.4500000000000055, -0.6999999999999943, -0.7853960772320983)  reached location:  (6.449998378753662, -0.7000008821487427, -0.7853998334162183)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.449998378753662, -0.7000008821487427, -0.7853998334162183)  goal:  (19, 19, 0)  short-term goal: (6.7000000000000055, -0.9499999999999943, -0.7853931566146658)  reached location:  (6.6999969482421875, -0.9500027894973755, -0.7853998334162183)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.6999969482421875, -0.9500027894973755, -0.7853998334162183)  goal:  (19, 19, 0)  short-term goal: (6.850000000000006, -1.1999999999999944, -1.0303629280844078)  reached location:  (6.849999904632568, -1.1999995708465576, -1.030362936816154)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.849999904632568, -1.1999995708465576, -1.030362936816154)  goal:  (19, 19, 0)  short-term goal: (6.9500000000000055, -1.4499999999999944, -1.190290212764651)  reached location:  (6.94999885559082, -1.4499990940093994, -1.1902903031817935)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.94999885559082, -1.4499990940093994, -1.1902903031817935)  goal:  (19, 19, 0)  short-term goal: (7.2000000000000055, -1.5999999999999943, -0.5404201453999806)  reached location:  (7.200000762939453, -1.5999997854232788, -0.5404208024718494)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (7.200000762939453, -1.5999997854232788, -0.5404208024718494)  goal:  (19, 19, 0)  short-term goal: (7.4500000000000055, -1.3499999999999943, 0.7853992601250567)  reached location:  (7.341507434844971, -1.460081696510315, 0.7853993567047591)  robot status:  PREEMPTED
+Collided at (7.341507434844971, -1.460081696510315, 0.7853993567047591). Marking point (7.376862731714488, -1.4247263152612282, 0.0) as obstacle.Tracking back to (7.200000762939453, -1.5999997854232788, -0.5404208024718494)
+exploring 1 step
+go_to_absolute  initial location:  (7.200000762939453, -1.5999997854232788, -0.5404207450299747)  goal:  (19, 19, 0)  short-term goal: (6.9500000000000055, -1.8499999999999943, -2.356195586915665)  reached location:  (6.949997901916504, -1.8499987125396729, -2.3561960753627313)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.949997901916504, -1.8499987125396729, -2.3561960753627313)  goal:  (19, 19, 0)  short-term goal: (6.7000000000000055, -2.0999999999999943, -2.3561877190937213)  reached location:  (6.699995994567871, -2.099996566772461, -2.3561960753627313)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.699995994567871, -2.099996566772461, -2.3561960753627313)  goal:  (19, 19, 0)  short-term goal: (6.550000000000006, -2.3499999999999943, -2.11119798779995)  reached location:  (6.549998760223389, -2.3499982357025146, -2.111198111456924)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.549998760223389, -2.3499982357025146, -2.111198111456924)  goal:  (19, 19, 0)  short-term goal: (6.550000000000006, -2.5999999999999943, -1.5707913677234242)  reached location:  (6.550002098083496, -2.5999996662139893, -1.570790004767778)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.550002098083496, -2.5999996662139893, -1.570790004767778)  goal:  (19, 19, 0)  short-term goal: (6.550000000000006, -2.8499999999999943, -1.5708047191176517)  reached location:  (6.550004959106445, -2.8499996662139893, -1.570790004767778)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.550004959106445, -2.8499996662139893, -1.570790004767778)  goal:  (19, 19, 0)  short-term goal: (6.4500000000000055, -3.0999999999999943, -1.9513193437468328)  reached location:  (6.4499993324279785, -3.1000008583068848, -1.9513187179192115)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.4499993324279785, -3.1000008583068848, -1.9513187179192115)  goal:  (19, 19, 0)  short-term goal: (6.2000000000000055, -3.2999999999999945, -2.4668525022207275)  reached location:  (6.200000286102295, -3.3000032901763916, -2.4668522465501197)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (6.200000286102295, -3.3000032901763916, -2.4668522465501197)  goal:  (19, 19, 0)  short-term goal: (5.9500000000000055, -3.4499999999999944, -2.6011833352455556)  reached location:  (5.950000286102295, -3.4499988555908203, -2.601183101065092)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (5.950000286102295, -3.4499988555908203, -2.601183101065092)  goal:  (19, 19, 0)  short-term goal: (5.900000000000006, -3.6999999999999944, -1.768192106722431)  reached location:  (5.900000095367432, -3.700002670288086, -1.7681917825191722)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (5.900000095367432, -3.700002670288086, -1.7681917825191722)  goal:  (19, 19, 0)  short-term goal: (6.150000000000006, -3.9499999999999944, -0.7853930135276317)  reached location:  (6.0959014892578125, -3.898181438446045, -0.7853920848293461)  robot status:  PREEMPTED
+Collided at (6.0959014892578125, -3.898181438446045, -0.7853920848293461). Marking point (6.131257043226323, -3.933536562594883, 0.0) as obstacle.Tracking back to (5.900000095367432, -3.700002670288086, -1.7681917825191722)
+exploring 1 step
+go_to_absolute  initial location:  (5.900000095367432, -3.700002670288086, -1.7681917659069815)  goal:  (19, 19, 0)  short-term goal: (5.650000000000006, -3.5999999999999943, 2.761077200165149)  reached location:  (5.650000095367432, -3.5999975204467773, 2.761078554569592)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (5.650000095367432, -3.5999975204467773, 2.761078554569592)  goal:  (19, 19, 0)  short-term goal: (5.400000000000006, -3.5999999999999943, -3.1415827353807093)  reached location:  (5.399999618530273, -3.5999975204467773, -3.1415827170773234)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (5.399999618530273, -3.5999975204467773, -3.1415827170773234)  goal:  (19, 19, 0)  short-term goal: (5.150000000000006, -3.5999999999999943, -3.1415827353617916)  reached location:  (5.150000095367432, -3.5999975204467773, -3.1415827170773234)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (5.150000095367432, -3.5999975204467773, -3.1415827170773234)  goal:  (19, 19, 0)  short-term goal: (4.900000000000006, -3.5999999999999943, -3.1415827353807093)  reached location:  (4.900000095367432, -3.5999975204467773, -3.1415827170773234)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (4.900000095367432, -3.5999975204467773, -3.1415827170773234)  goal:  (19, 19, 0)  short-term goal: (4.650000000000006, -3.5999999999999943, -3.1415827353807093)  reached location:  (4.65000057220459, -3.5999975204467773, -3.1415827170773234)  robot status:  SUCCEEDED
+exploring 1 step
+go_to_absolute  initial location:  (4.65000057220459, -3.5999975204467773, -3.1415827170773234)  goal:  (19, 19, 0)  short-term goal: (4.400000000000006, -3.8499999999999943, -2.3561906755183624)
