@@ -346,19 +346,6 @@ index 200a96b6..18ae0344 100644
          if type(v) == dict:
              coref_resolve(memory, v, chat)
          if type(v) == list:
-diff --git a/droidlet/interpreter/robot/loco_interpreter.py b/droidlet/interpreter/robot/loco_interpreter.py
-index 7be684f7..32bf8f7b 100644
---- a/droidlet/interpreter/robot/loco_interpreter.py
-+++ b/droidlet/interpreter/robot/loco_interpreter.py
-@@ -27,7 +27,8 @@ import droidlet.interpreter.robot.tasks as tasks
- def post_process_loc(loc, interpreter):
-     self_mem = interpreter.memory.get_mem_by_id(interpreter.memory.self_memid)
-     yaw, _ = self_mem.get_yaw_pitch()
--    return (loc[0], loc[2], yaw)
-+    return (loc[0], loc[1], yaw)
- 
- 
- def add_default_locs(interpreter):
 diff --git a/droidlet/lowlevel/locobot/locobot_mover.py b/droidlet/lowlevel/locobot/locobot_mover.py
 index 63c881f3..ed0d8c76 100644
 --- a/droidlet/lowlevel/locobot/locobot_mover.py
@@ -374,7 +361,7 @@ index 63c881f3..ed0d8c76 100644
              self.nav_result.wait() # wait for the previous navigation command to finish
              self.nav_result = self.nav.go_to_absolute(
 -                base_canonical_coords_to_pyrobot_coords(xyt),
-+                tuple(xyt) #base_canonical_coords_to_pyrobot_coords(xyt),
++                tuple(base_canonical_coords_to_pyrobot_coords(xyt)),
              )
              if blocking:
                  self.nav_result.wait()
